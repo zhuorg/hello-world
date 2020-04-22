@@ -6,3 +6,5 @@ Just another repository
 Solo un nuevo archivo
 # salut-monde
 Juste un nouveau dépôt
+# DIY
+https://guides.github.com/activities/hello-world/
