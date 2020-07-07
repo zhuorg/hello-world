@@ -5,6 +5,6 @@ Just another repository
 # hola-mundo
 Solo un nuevo archivo
 # salut-monde
-Juste un nouveau dépôt
+labeler.yml
 # DIY
 https://guides.github.com/activities/hello-world/
