@@ -1,0 +1,27 @@
+# This is a basic workflow to help you get started with Actions
+
+name: PR2
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  PR1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: check the value for name
+        run: |
+           .....               # check the name value, if it's not 'Octocat', exit 1 to fail the workflow.
+
+      - name: add label and milestone    # will be executed when name value is correct
+        run: |
+          curl --request PATCH \
+            --url ${{ github.event.pull_request.issue_url }} \
+            --header 'authorization: token ${{ secrets.GITHUB_TOKEN }}' \
+            --data '{"milestone": 1, "labels": [ "bug" ]}'      # 1 is the milestone number
