@@ -22,7 +22,11 @@ jobs:
              --url ${{ github.event.pull_request.issue_url }} \
              --header 'authorization: token ${{ secrets.GITHUB_TOKEN }}' \
              --data '{"milestone": 1, "labels": [ "bug" ]}'
+             --github.issues.createComment({
+               body: '👋 Thanks for reporting!'
+               })
            else
              echo "NotFound"
              exit 1
            fi
+            
