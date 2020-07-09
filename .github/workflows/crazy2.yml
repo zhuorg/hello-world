@@ -1,0 +1,31 @@
+name: CRAZY2
+
+on:
+  push:
+
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with: 
+        fetch-depth: 2
+
+    - run: |
+           file=$( git diff-tree --no-commit-id --name-only -r ${{ github.sha }} )
+           echo $file
+           line=$(sed -n '1p' $file)
+           SUB='name: Octocat'
+           if grep -q "$SUB" <<< "$line"; 
+           then
+              echo "Octocat's there"
+              curl --request PATCH \
+              --url ${{ github.event.pull_request.issue_url }} \
+              --header 'authorization: token ${{ secrets.GITHUB_TOKEN }}' \
+              --data '{"milestone": 1, "labels": [ "bug" ]}'
+           else
+              echo "No Octocat"
+              exit 1
+           fi
