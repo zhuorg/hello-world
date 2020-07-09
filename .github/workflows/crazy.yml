@@ -1,0 +1,27 @@
+name: CRAZY
+
+on:
+  push:
+    
+  pull_request:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+      
+    - name: check value and set label milestone
+      run: |
+           STR="name: Octocat"
+           if [ `grep -c "$STR" crazy` -ne '0' ];
+           then
+             echo "Found"
+             curl --request PATCH \
+             --url ${{ github.event.pull_request.issue_url }} \
+             --header 'authorization: token ${{ secrets.GITHUB_TOKEN }}' \
+             --data '{"milestone": 1, "labels": [ "bug" ]}'
+           else
+             echo "NotFound"
+           fi
