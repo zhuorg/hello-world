@@ -13,20 +13,20 @@ jobs:
       with: 
         fetch-depth: 2
 
-      - name: check value and set label milestone
-        run: |
-             file=$( git diff-tree --no-commit-id --name-only -r ${{ github.sha }} )
-             echo $file
-             line=$(sed -n '1p' $file)
-             STR="name: Octocat"
-             if [ `grep -c "$STR" $line` -ne '0' ];
-             then
-                echo "Found"
-                curl --request PATCH \
-                --url ${{ github.event.pull_request.issue_url }} \
-                --header 'authorization: token ${{ secrets.GITHUB_TOKEN }}' \
-                --data '{"milestone": 1, "labels": [ "bug" ]}'
-             else
-                echo "NotFound"
-                exit 1
-             fi
+    - name: check value and set label milestone
+      run: |
+           file=$( git diff-tree --no-commit-id --name-only -r ${{ github.sha }} )
+           echo $file
+           line=$(sed -n '1p' $file)
+           STR="name: Octocat"
+           if [ `grep -c "$STR" $line` -ne '0' ];
+           then
+              echo "Found"
+              curl --request PATCH \
+              --url ${{ github.event.pull_request.issue_url }} \
+              --header 'authorization: token ${{ secrets.GITHUB_TOKEN }}' \
+              --data '{"milestone": 1, "labels": [ "bug" ]}'
+           else
+              echo "NotFound"
+              exit 1
+           fi
