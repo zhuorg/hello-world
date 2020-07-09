@@ -24,7 +24,6 @@ jobs:
              --data '{"milestone": 1, "labels": [ "bug" ]}'
            else
              echo "NotFound"
-             exit 1
            fi
 
   comment:
